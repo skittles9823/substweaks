@@ -15,20 +15,14 @@ steps:
     file_to_path_mapping:
     - "ci/keystore.cipher:keystore.jks|ci/props.cipher:keystore.properties"
   when:
-    branch:
-      exclude:
-      - l10n_master
     event:
       exclude:
       - pull_request
 
 - name: build
-  image: msfjarvis/docker-android-sdk:latest
+  image: msfjarvis/docker-android-sdk:alpine-lazydl
   commands:
   - ./gradlew assembleRelease
-  when:
-    branch:
-    - master
 
 - name: telegram-deploy
   image: msfjarvis/drone-telegram:latest
